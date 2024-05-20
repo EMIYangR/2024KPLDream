@@ -11,7 +11,7 @@ chrome_options.add_argument("--headless")  # 无头模式，不打开浏览器�
 chrome_options.add_argument("--disable-gpu")  # 禁用 GPU 加速
 
 # 启动 Chrome
-driver_path = r"D:\EMI\Tools\chromedriver\chromedriver.exe"  # 根据你的环境设置 chromedriver 的路径
+driver_path = r"chromedriver\chromedriver.exe"  # 根据你的环境设置 chromedriver 的路径 不设置会报错哦
 driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
 
 # 打开指定网页
@@ -25,9 +25,8 @@ print("页面加载完成！")
 result1 = driver.execute_script('''
     let all = "";
     $.each(teams, function (index, data) {
-        let tname = data.tname;
         $.each(data.members, function (index, data) {
-            all = all + data.nick + "\t" + data.road + "\t" + data.vote + "\t" + tname + "\\n";
+            all = all + data.nick + "\t" + data.road + "\t" + data.vote + "\t" + data.tname + "\\n";
         });
     });
     return all;
@@ -53,7 +52,7 @@ workbook = load_workbook('2024KPL梦之队.xlsx')
 # 获取指定的工作表
 sheet1 = workbook['MemberData']  # 选手
 sheet2 = workbook['CoachData']  # 教练
-sheet3 = workbook['timestamp']  # 时间戳
+sheet3 = workbook['timestamp']  # 时间
 
 # 将数据分割成行，并逐行写入指定的单元格
 for i, line in enumerate(result1.split('\n')):
